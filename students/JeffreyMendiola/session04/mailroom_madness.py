@@ -81,7 +81,12 @@ def thank_you():
         else:
             name_input = name_input.title()
 
-        if name_input == "List":
+        if name_input.isalpha() is False:
+            if len(name_input) <= 2:
+                print "\nOops! Please enter 2+ characters."
+            else:
+                print "\nOops! Please only use letters."
+        elif name_input == "List":
             print "List of Donors:"
             counter = 0
             for person in donors:
@@ -89,8 +94,6 @@ def thank_you():
                 print str(counter) + ". " + str(person)
         elif name_input == "Q":
             break
-        elif len(name_input) < 2:
-            print "\nOops! Please enter 2+ letters. "
         else:
             new_member = False
 
