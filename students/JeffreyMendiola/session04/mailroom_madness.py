@@ -1,19 +1,59 @@
-# Task 11: Mailroom Madness
+"""
+===============================================================================
+file: mailroom_madness.py
+===============================================================================
+Programmer: Jeffrey Mendiola
+Date: 04/01/2015
+Course: SEA-C34: Foundations II: Python
+Time: MW 7:00pm - 9:00pm
+Instructor: Paul Pham
+Task: #11 Mailroom Madness
+Description:
+     This program allows the user to "SEND A THANK YOU" or "CREATE A REPORT".
+     The program will keep looping until asked to stop.
 
-# list of donors and history of donation amounts
+     If the user wishes to "SEND A THANK YOU", the program will prompt for a
+     full name and donation amount. Afterwards, it will add the donation to
+     the user's donation history and display the thank you e-mail to be sent
+     to the donor. If the user would like a list of all the donors, the user
+     may enter "List" in response to the "Enter Full Name" prompt.
+
+     If the user wishes to "CREATE A REPORT", the program will display a table
+     of the donors sorted by total historical donation amount.
+     The table will include:
+        - Donor name
+        - Total amount donated
+        - Number of donations
+        - Average donation.
+===============================================================================
+"""
+
+# default list of donors
+# "donor name": [donation]
 
 donors = {
-    "Russell Wilson": [1000, 1000, 1000],
-    "Marshawn Lynch": [10000, 14000],
-    "Richard Sherman": [25000]
+    "Kobe Bryant": [24000],
+    "Manny Pacquiao": [17000],
+    "Mike Trout": [100000],
+    "Russell Wilson": [1000, 1000, 1000]
 }
-
-# send a thank you
 
 
 def thank_you():
+    """
+    The function prompts for a full name, donation amount, and displays the
+    "Thank-you" e-mail to be sent to the donor.
+
+    If the user enters "List", the function displays a list of all the donors.
+
+    Args:
+        None
+
+    Return:
+        None
+    """
     while True:
-        name_input = raw_input("Enter Full Name: ")
+        name_input = raw_input("\nEnter Full Name: ")
         name_input = name_input.title()
 
         if name_input == "List":
@@ -29,9 +69,9 @@ def thank_you():
 
             if name_input not in donors:
                 new_member = True
-                donors[str(name_input)] = None
+                donors[str(name_input)] = [0]
 
-            donation = raw_input("Enter Donation Amount: $ ")
+            donation = raw_input("\nEnter Donation Amount: $ ")
 
             while True:
                 if donation.upper() == "Q":
@@ -40,7 +80,7 @@ def thank_you():
                     donation = int(donation)
                     break
                 else:
-                    donation = raw_input("Oops! Please only use numbers: ")
+                    donation = raw_input("\nOops! Please only use numbers: ")
 
             if type(donation) is int:
                 pass
@@ -54,7 +94,8 @@ def thank_you():
             n = str(name_input)
             d = str(donation)
 
-            print "\n"
+            print "\n\n"
+            print "(email to be sent)\n"
             print "Dear {name},\n\n" \
                   " Thank you for your donation of ${amount}.\n\n" \
                   " We appreciate your generosity.\n\n" \
@@ -62,51 +103,57 @@ def thank_you():
                   "Taco Corp.\n\n".format(name=n, amount=d)
             break
 
-# new report
-
 
 def new_report():
+    """
+    The function displays a report of the donors sorted by total historical
+    donation amount.
 
+    Args:
+        None
+
+    Return:
+        None
+    """
     donors_sort = []
 
     for name in donors:
         total_donated = sum(donors[name])
         num_donations = len(donors[name])
-        avg_donation = total_donated / num_donations
+        if total_donated == 0:
+            avg_donation = 0
+            num_donations = 0
+        else:
+            avg_donation = total_donated / num_donations
         donors_sort.append([name, total_donated, num_donations, avg_donation])
 
     donors_sort = sorted(donors_sort, reverse=True, key=lambda donor: donor[1])
-
-    print "{:<20} {:<10} {:<5} {:<10}".format('Name', 'Total', '#', 'Avg.')
+    print "\n"
+    print "{:<20}   {:<10} {:<5}   {:<10}".format('Name', 'Total', '#', 'Avg.')
     for x in donors_sort:
-        print "{:<20} {:<10} {:<5} {:<10}".format(x[0], x[1], x[2], x[3])
+        print "{:<20} $ {:<10} {:<5} $ {:<10}".format(x[0], x[1], x[2], x[3])
 
 
-# main menu prompt
+# Main Menu Prompt
 
-"""
-========== MAIN ===============================================================
-- Display user main menu with a list of options.
-- Keep looping until user enters "Q"
-===============================================================================
-"""
 while True:
-    print "\n\nMAIL ROOM MENU:\n"
-    print "A) SEND A THANK YOU\n"
-    print "B) CREATE A REPORT\n"
-    print "Q) QUIT\n"
-    user_action = raw_input("WHAT WOULD YOU LIKE TO DO?: ")
+    print "\n"
+    print "=== MAIN MENU ============================================="
+    print "\nA) Send a Thank You\n"
+    print "B) Create a Report\n"
+    print "Q) Quit\n"
+    print "==========================================================="
+    print "\n"
+    user_action = raw_input("What would you like to do? : ")
     user_action = user_action.upper()
 
     if user_action == "A":
-        print "SELECTION: SEND A THANK YOU\n"
         thank_you()
     elif user_action == "B":
-        print "SELECTION: CREATE A REPORT\n"
         new_report()
     elif user_action == "Q":
-        print "\nBYE!\n"
+        print "\nBye!\n"
+        print "(program has ended)\n"
         break
     else:
-        print("SELECTION: %s" % user_action)
-        print "Sorry, you must enter A, B, or Q.\n"
+        print "\nEntry Error! You must enter A, B, or Q.\n"
