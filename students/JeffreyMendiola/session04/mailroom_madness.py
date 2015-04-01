@@ -36,7 +36,8 @@ donors = {
     "Kobe Bryant": [24000],
     "Manny Pacquiao": [17000],
     "Mike Trout": [100000],
-    "Russell Wilson": [1000, 1000, 1000]
+    "Russell Wilson": [1000, 1000, 1000],
+    "50 Cent": [50]
 }
 
 # task 10: exception feature
@@ -74,18 +75,14 @@ def thank_you():
         None
     """
     while True:
-        # name_input = raw_input("\nEnter Full Name: ")
         name_input = safe_input("\nEnter Full Name: ")
         if name_input is None:
             raise sys.exit("\n\n(program has ended)\n\n")
         else:
             name_input = name_input.title()
 
-        if name_input.isalpha() is False:
-            if len(name_input) <= 2:
-                print "\nOops! Please enter 2+ characters."
-            else:
-                print "\nOops! Please only use letters."
+        if len(name_input) <= 2:
+            print "\nOops! Please enter 2+ characters."
         elif name_input == "List":
             print "List of Donors:"
             counter = 0
@@ -102,7 +99,6 @@ def thank_you():
                 donors[str(name_input)] = [0]
 
             while True:
-                # donation = raw_input("\nEnter Donation Amount: $ ")
                 donation = safe_input("\nEnter Donation Amount: $ ")
                 if donation is None:
                     raise sys.exit("\n\n(program has ended)\n\n")
@@ -112,8 +108,7 @@ def thank_you():
                     donation = int(donation)
                     break
                 else:
-                    # donation = raw_input("\nOops! Please only use numbers: ")
-                    donation = safe_input("\nOops! Please only use numbers.")
+                    donation = safe_input("\nOops! Please only use numbers: ")
 
             if type(donation) is int:
                 pass
