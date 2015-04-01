@@ -27,6 +27,7 @@ Description:
         - Average donation.
 ===============================================================================
 """
+import sys
 
 # default list of donors
 # "donor name": [donation]
@@ -37,6 +38,26 @@ donors = {
     "Mike Trout": [100000],
     "Russell Wilson": [1000, 1000, 1000]
 }
+
+# task 10: exception feature
+
+
+def safe_input(user_prompt):
+    """
+    This wrapper function takes in a string that is to be prompted
+    to the user. If an EOFError or KeyboardInterrupt error is raised,
+    the function returns None.
+    Args:
+        user_prompt: This is the question to be prompted to the user.
+    Result:
+        return string (user's input) or None
+
+    """
+    try:
+        user_input = raw_input(user_prompt)
+        return user_input
+    except (EOFError, KeyboardInterrupt):
+        return None
 
 
 def thank_you():
@@ -53,8 +74,13 @@ def thank_you():
         None
     """
     while True:
-        name_input = raw_input("\nEnter Full Name: ")
-        name_input = name_input.title()
+        # name_input = raw_input("\nEnter Full Name: ")
+        name_input = safe_input("\nEnter Full Name: ")
+        if name_input is None:
+            raise sys.exit("\n\n(program has ended)\n\n")
+        else:
+            name_input = name_input.title()
+            name_input_alpha = name_input.isalpha()
 
         if name_input == "List":
             print "List of Donors:"
@@ -64,6 +90,10 @@ def thank_you():
                 print str(counter) + ". " + str(person)
         elif name_input == "Q":
             break
+        elif name_input_alpha is False:
+            print "\nOops! Please only use letters. "
+        elif len(name_input) < 2:
+            print "\nOops! Please enter 2+ letters. "
         else:
             new_member = False
 
@@ -71,16 +101,19 @@ def thank_you():
                 new_member = True
                 donors[str(name_input)] = [0]
 
-            donation = raw_input("\nEnter Donation Amount: $ ")
-
             while True:
+                # donation = raw_input("\nEnter Donation Amount: $ ")
+                donation = safe_input("\nEnter Donation Amount: $ ")
+                if donation is None:
+                    raise sys.exit("\n\n(program has ended)\n\n")
                 if donation.upper() == "Q":
                     break
                 elif donation.isdigit() is True:
                     donation = int(donation)
                     break
                 else:
-                    donation = raw_input("\nOops! Please only use numbers: ")
+                    # donation = raw_input("\nOops! Please only use numbers: ")
+                    donation = safe_input("\nOops! Please only use numbers.")
 
             if type(donation) is int:
                 pass
@@ -89,7 +122,10 @@ def thank_you():
             if new_member is True:
                 donors[str(name_input)] = [donation]
             else:
-                donors[str(name_input)].extend([donation])
+                if donors[str(name_input)] == [0]:
+                    donors[str(name_input)] = [donation]
+                else:
+                    donors[str(name_input)].extend([donation])
 
             n = str(name_input)
             d = str(donation)
@@ -135,7 +171,6 @@ def new_report():
 
 
 # Main Menu Prompt
-
 while True:
     print "\n"
     print "=== MAIN MENU ============================================="
@@ -144,8 +179,12 @@ while True:
     print "Q) Quit\n"
     print "==========================================================="
     print "\n"
-    user_action = raw_input("What would you like to do? : ")
-    user_action = user_action.upper()
+    # user_action = raw_input("What would you like to do? : ")
+    user_action = safe_input("What would you like to do? : ")
+    if user_action is None:
+        raise sys.exit("\n\n(program has ended)\n\n")
+    else:
+        user_action = user_action.upper()
 
     if user_action == "A":
         thank_you()
@@ -153,7 +192,6 @@ while True:
         new_report()
     elif user_action == "Q":
         print "\nBye!\n"
-        print "(program has ended)\n"
-        break
+        raise sys.exit("\n\n(program has ended)\n\n")
     else:
         print "\nEntry Error! You must enter A, B, or Q.\n"
