@@ -80,7 +80,6 @@ def thank_you():
             raise sys.exit("\n\n(program has ended)\n\n")
         else:
             name_input = name_input.title()
-            name_input_alpha = name_input.isalpha()
 
         if name_input == "List":
             print "List of Donors:"
@@ -90,8 +89,6 @@ def thank_you():
                 print str(counter) + ". " + str(person)
         elif name_input == "Q":
             break
-        elif name_input_alpha is False:
-            print "\nOops! Please only use letters. "
         elif len(name_input) < 2:
             print "\nOops! Please enter 2+ letters. "
         else:
