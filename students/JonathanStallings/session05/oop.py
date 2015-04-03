@@ -1,48 +1,39 @@
 from __future__ import print_function
-import sys
-import traceback
 
-# 2 Questions
+# 2 Questions (Side note: This section is two bare for questions that
+# don't fit better in classes.py or subclasses.py)
 
 
-def instance_precedence():
-    """Do instance attributes supercede class attributes?"""
+def instance_type():
+    """What is the type of an intance?"""
     class Foo(object):
-        size = 4
-        color = "red"
+        """Set up class Foo."""
+        def __init__(self, message):
+            self.message = message
 
-        def __init__(self, x, y):
-            """Create instance."""
-            self.x = x
-            self.y = y
-            self.size = 10
-    bar = Foo(2, 6)
-    assert(bar.size == 10)
-    print(bar.size)
+    bar = Foo("Hello world")
+    print(type(bar))
 
 
-instance_precedence()
-# result: Yes, they do.
-
-
-def self_test():
-    """What happens when I pass self explicitly when creating an instance?"""
+def instance_type_on_import():
+    """What is the type of an instance on import?"""
     class Foo(object):
-        size = 4
-        color = "red"
+        """Set up class Foo."""
+        def __init__(self, message):
+            self.message = message
 
-        def __init__(self, x, y):
-            """Create instance."""
-            self.x = x
-            self.y = y
-    try:
-        bar = Foo(self, 2, 6)
-        assert(bar.x == 2)
-    except NameError:
-        traceback.print_exc(file=sys.stdout)
+    print(u"\nQuestion 2:\n")
+    bar = Foo("Hello world")
+    print(type(bar))
 
 
-self_test()
-# result: Apparently, this throws a NameError exception. Python seems to
-# think that I am referring to a separate global name 'self' when I pass
-# it explicitly in this way.
+if __name__ == '__main__':
+    print(u"\nQuestion 1:\n")
+    instance_type()
+    # result: The type is "class '__main__.Foo'".
+
+    # Question 2 must be run by importing and running function directly.
+    # Method for my test was: "from oop import instance_type_on_import".
+
+    # result: The type is "class 'oop.Foo'". So, Foo is put in the oop
+    # namespace rather than the __main__ namespace this way.
