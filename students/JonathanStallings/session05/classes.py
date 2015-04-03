@@ -21,10 +21,6 @@ def instance_precedence():
     print(bar.size)
 
 
-instance_precedence()
-# result: Yes, they do.
-
-
 def self_test():
     """What happens when I pass self explicitly when creating an instance?"""
     class Foo(object):
@@ -41,8 +37,14 @@ def self_test():
     except NameError:
         traceback.print_exc(file=sys.stdout)
 
+if __name__ == '__main__':
+    print(u"\nQuestion 1:\n")
+    instance_precedence()
+    # result: Yes, they do.
 
-self_test()
-# result: Apparently, this throws a NameError exception. Python seems to
-# think that I am referring to a separate global name 'self' when I pass
-# it explicitly in this way.
+    print(u"\nQuestion 2:\n")
+    self_test()
+    # result: Apparently, this throws a NameError exception. Python seems to
+    # think that I am referring to a separate global name 'self' when I pass
+    # it explicitly in this way.
+

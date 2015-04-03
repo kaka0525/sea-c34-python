@@ -26,15 +26,6 @@ def class_chaos():
     b = Bar(10, 5)
     print(b.color)
 
-print(u"\nQuestion 1:\n")
-try:
-    class_chaos()
-except UnboundLocalError:
-    traceback.print_exc(file=sys.stdout)
-
-# result: This silly setup doesn't even get off the ground due to an
-# UnboundLocalError since Bar is reference on line 10 before assignment.
-
 
 def import_list_methods():
     """Can I use subclassing to import built-in list methods?"""
@@ -47,10 +38,6 @@ def import_list_methods():
         u"my_list methods include: {methods}"
         .format(methods=dir(a))
     )
-
-print(u"\nQuestion 2:\n")
-import_list_methods()
-# result: Yes, I can.
 
 
 def update_superclass_attributes():
@@ -72,11 +59,6 @@ def update_superclass_attributes():
     Foo.color = "green"
     assert(thing.color == "green")
     print(thing.color)
-
-
-print(u"\nQuestion 3:\n")
-update_superclass_attributes()
-# result: Yes, the changes are updated in derived instances.
 
 
 def update_superclass_methods():
@@ -120,7 +102,24 @@ def update_superclass_methods():
     thing.report()
 
 
-print(u"\nQuestion 4:\n")
-update_superclass_methods()
-# result: Yes, the changes are updated in derived instances.
+if __name__ == '__main__':
+    print(u"\nQuestion 1:\n")
+    try:
+        class_chaos()
+    except UnboundLocalError:
+        traceback.print_exc(file=sys.stdout)
 
+    # result: This silly setup doesn't even get off the ground due to an
+    # UnboundLocalError since Bar is reference on line 10 before assignment.
+
+    print(u"\nQuestion 2:\n")
+    import_list_methods()
+    # result: Yes, I can.
+
+    print(u"\nQuestion 3:\n")
+    update_superclass_attributes()
+    # result: Yes, the changes are updated in derived instances.
+
+    print(u"\nQuestion 4:\n")
+    update_superclass_methods()
+    # result: Yes, the changes are updated in derived instances.
