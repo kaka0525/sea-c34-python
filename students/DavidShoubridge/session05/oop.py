@@ -21,8 +21,8 @@ def with_init():
             self.species = species
             self.name = name
 
-    Rabbit = Animal("Test-Pedal", "Bugs")
-    print(Rabbit)
+    rabbit = Animal("Test-Pedal", "Bugs")
+    print(rabbit)
 
 
 if __name__ == '__main__':
