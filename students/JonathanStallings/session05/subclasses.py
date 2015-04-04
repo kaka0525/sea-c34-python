@@ -123,3 +123,4 @@ if __name__ == '__main__':
     print(u"\nQuestion 4:\n")
     update_superclass_methods()
     # result: Yes, the changes are updated in derived instances.
+

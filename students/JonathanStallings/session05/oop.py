@@ -37,3 +37,4 @@ if __name__ == '__main__':
 
     # result: The type is "class 'oop.Foo'". So, Foo is put in the oop
     # namespace rather than the __main__ namespace this way.
+
