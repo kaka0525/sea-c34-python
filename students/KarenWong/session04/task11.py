@@ -6,13 +6,13 @@ donation_list = {"Peter": [300, 200], "Paul": [200, 35], "Mary": [100],
 def main_program():
     while True:
         user_input = raw_input(u"Send a thank you, enter 1  or Create a "
-                               "report, enter 2, quit, enter 3"
+                               "report, enter 2, quit, enter QUIT"
                                " to quit anytime ")
         if (user_input == "1"):
             send_thank_you()
         elif (user_input == "2"):
             create_a_report()
-        elif (user_input == "3"):
+        elif (user_input == "QUIT"):
             break
         else:
             print ("sorry i don't recognize your command")
@@ -21,6 +21,8 @@ def main_program():
 def get_donation_amount():
     while True:
         amount = raw_input(u"How much do you want to donate? ")
+        if amount == "QUIT":
+            return None
         try:
             return float(amount)
         except:
@@ -32,13 +34,18 @@ def send_thank_you():
     while True:
         prompt_name = raw_input(u" Enter the full name of the recipient."
                                 " Type list to see a list of donor names ")
+        if prompt_name == "QUIT":
+            break
         if prompt_name == "list" or prompt_name == "List":
             print (donation_list)
             continue
         if prompt_name.isalpha():
             if prompt_name not in donation_list:
                 donation_list[prompt_name] = []
-            donation_list[prompt_name].append(get_donation_amount())
+            amount = get_donation_amount()
+            if amount is None:
+                break
+            donation_list[prompt_name].append(amount)
             thankyou_letter(prompt_name)
             break
 
