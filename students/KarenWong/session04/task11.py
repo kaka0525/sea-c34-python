@@ -12,7 +12,7 @@ def main_program():
             send_thank_you()
         elif (user_input == "2"):
             create_a_report()
-        elif (user_input == "QUIT"):
+        elif (user_input == "QUIT" or user_input == "quit"):
             break
         else:
             print ("sorry i don't recognize your command")
@@ -21,11 +21,11 @@ def main_program():
 def get_donation_amount():
     while True:
         amount = raw_input(u"How much do you want to donate? ")
-        if amount == "QUIT":
+        if amount == "QUIT" or amount == "quit":
             return None
         try:
             return float(amount)
-        except:
+        except ValueError:
             print ("Please enter a number")
 
 
@@ -34,7 +34,7 @@ def send_thank_you():
     while True:
         prompt_name = raw_input(u" Enter the full name of the recipient."
                                 " Type list to see a list of donor names ")
-        if prompt_name == "QUIT":
+        if prompt_name == "QUIT" or prompt_name == "quit":
             break
         if prompt_name == "list" or prompt_name == "List":
             print (donation_list)
