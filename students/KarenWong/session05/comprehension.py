@@ -24,3 +24,7 @@ def update_dict():
     my_dict = {"first name": "Karen"}
     my_dict = {"last name": "Wong" for key, value in my_dict.items()}
     print my_dict
+
+devowel()
+find_vowel()
+update_dict()
