@@ -36,7 +36,11 @@ class NFC_South(NFC_West):
 
 # Question 2
 
-"""Will the team names in the classes that are subclasses of NFC_West?"""
+"""
+Will the team names in the classes that are
+subclasses of NFC_West be called?
+
+"""
 if (__name__ == "__main__"):
     t1 = NFC_West("Seahawks")
     t2 = NFC_West("Cardinals")
