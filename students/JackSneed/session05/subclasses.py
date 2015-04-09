@@ -6,7 +6,6 @@ class Build(object):
         self.x = x
         self.y = y
 
-
 p = Build("I think", " I got it!")
 
 class NewBuild(Build):
