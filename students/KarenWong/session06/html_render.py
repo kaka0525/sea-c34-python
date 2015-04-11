@@ -1,6 +1,6 @@
 class Element(object):
     """An HTML element."""
-    tag = u"html"
+    tag = u""
     indent = u"    "
 
     def __init__(self, content=None):
