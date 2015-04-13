@@ -16,12 +16,12 @@ def empty_argument(*args, **kwargs):
     What happen when you pass in empty args and kwargs for a function?
     """
     print (args)
-    print (kwargs)  # prints out an empty tuble and empty dictionary
+    print (kwargs)  # prints out an empty tuple and empty dictionary
 
 
 def string_format():
     """
-    Can you pass a tuble to the string.format method?
+    Can you pass a tuple to the string.format method?
     """
     t = ("Karen", "Wong")
     print "this is %s %s" % t   # yes you can
