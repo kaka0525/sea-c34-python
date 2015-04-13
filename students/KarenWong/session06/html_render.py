@@ -11,13 +11,16 @@ class Element(object):
         """Append string to content."""
         self.content.append(string)
 
-    def render(self, file_out, ind=""):
-        """Render the tag and strings in content."""
-        file_out.write(ind)
+    def render_opening_tag(self, file_out, ending=">\n"):
         file_out.write("<{}".format(self.tag))
         for key, value in self.attributes.iteritems():
             file_out.write(" {key}=\"{value}\"".format(key=key, value=value))
-        file_out.write(">\n")
+        file_out.write(ending)
+
+    def render(self, file_out, ind=""):
+        """Render the tag and strings in content."""
+        file_out.write(ind)
+        self.render_opening_tag(file_out)
         for item in self.content:
             if isinstance(item, Element):
                 item.render(file_out, ind + self.indent)
@@ -55,7 +58,7 @@ class OneLineTag(Element):
 
     def render(self, file_out, ind=""):
         file_out.write(ind)
-        file_out.write("<{}>".format(self.tag))
+        self.render_opening_tag(file_out, ending=">")
         for item in self.content:
             if isinstance(item, Element):
                 item.render(file_out, ind + self.indent)
@@ -69,10 +72,7 @@ class SelfClosingTag(Element):
 
     def render(self, file_out, ind=""):
         file_out.write(ind)
-        file_out.write("<{}".format(self.tag))
-        for key, value in self.attributes.iteritems():
-            file_out.write(" {key}=\"{value}\"".format(key=key, value=value))
-        file_out.write(" />\n")
+        self.render_opening_tag(file_out, ending=" />\n")
 
 
 class Hr(SelfClosingTag):
@@ -91,3 +91,30 @@ class Title(OneLineTag):
 class P(Element):
     """P tag."""
     tag = u"p"
+
+
+class A(OneLineTag):
+    tag = u"a"
+
+    def __init__(self, link, content=None, **kwargs):
+        kwargs['href'] = link
+        Element.__init__(self, content, **kwargs)
+
+
+class Ul(Element):
+    tag = u"ul"
+
+
+class Li(Element):
+    tag = u"li"
+
+
+class H(OneLineTag):
+
+    def __init__(self, headerlevel, content=None, **kwargs):
+        self.tag = u"h{headerlevel}".format(headerlevel=headerlevel)
+        Element.__init__(self, content, **kwargs)
+
+
+class Meta(SelfClosingTag):
+    tag = u"meta"
