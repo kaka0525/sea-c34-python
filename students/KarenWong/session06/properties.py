@@ -1,6 +1,6 @@
 def squarepants():
     """
-    My problem is to how to use decorators to simplify a function?
+    How to use decorators to simplify a function?
     """
 
     class Square(object):
