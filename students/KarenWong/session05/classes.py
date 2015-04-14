@@ -1,7 +1,7 @@
 def same_attribute():
     """
-        If two instances of the class have the same attributes are
-        they the same instance?
+    If two instances of the class have the same attributes are
+    they the same instance?
     """
     class Point(object):
         x = 1
