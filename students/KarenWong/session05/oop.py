@@ -8,8 +8,9 @@ class Dog(object):
 
 
 def doggie():
-    """How to create an instance of an object that has both similar and
-        different attributes than the class
+    """
+    How to create an instance of an object that has both similar and
+    different attributes than the class
     """
     haru = Dog(color="brown")
     print haru.color
