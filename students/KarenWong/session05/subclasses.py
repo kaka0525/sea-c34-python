@@ -64,8 +64,10 @@ juju = Corgi()
 
 
 def check_class():
-    """How do you check whether Corgi is a subclass of Dog and juju is
-       an instance of the corgi?"""
+    """
+    How do you check whether Corgi is a subclass of Dog and juju is
+    an instance of the corgi?
+    """
     if issubclass(Corgi, Dog):
         print ("Corgi is a subclass of the Dog class")
     else:
